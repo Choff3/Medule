@@ -1,5 +1,5 @@
-cd server
-npm i && npm start
+cd api
+npm i && npm nodemon index.js
 
-cd ../client
+cd ../frontend
 npm i && npm start
