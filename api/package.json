@@ -1,25 +1,17 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.mjs",
-  "scripts": {
-    "test": "jest",
-    "lint": "eslint \"**/*.{js,mjs}\"",
-    "lint:fix": "eslint \"**/*.{js,mjs}\" --fix"
-  },
   "name": "mern-stack-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "start": "nodemon index.js"
   },
+  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@babel/eslint-parser": "^7.23.3",
+    "@mui/x-data-grid": "^6.19.6",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "latest",
@@ -72,6 +64,5 @@
       "sourceType": "module"
     },
     "parser": "@babel/eslint-parser"
-  },
-  "type": "module"
+  }
 }
