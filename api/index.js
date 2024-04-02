@@ -10,8 +10,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/patient', patientRoutes);
-app.use('/medication', medicationRoutes);
+app.use('/', patientRoutes);
+app.use('/', medicationRoutes);
 
 loadFhirPatients();
 loadFhirMedications();

@@ -21,7 +21,6 @@ export async function loadFhirPatients(){
 export async function loadFhirMedications(){
     try {
         const response = await axios.get(`${FHIR_SERVER}/Medication`);
-        console.log(response);
         for (const key in response.data.entry){
             const medication = response.data.entry[key];
             await medicationCollection.insertOne(medication);
