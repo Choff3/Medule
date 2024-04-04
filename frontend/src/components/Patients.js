@@ -12,15 +12,8 @@ class Patients extends React.Component {
         this.state = {
             patients: {},
             columns: [
-                { field: 'col1', headerName: 'Column 1', width: 150 },
-                { field: 'col2', headerName: 'Column 2', width: 150 },
-                { field: 'col3', headerName: 'Column 3', width: 150 },
-                { field: 'col4', headerName: 'Column 4', width: 150 },
-                { field: 'col5', headerName: 'Column 5', width: 150 },
-                { field: 'col6', headerName: 'Column 6', width: 150 },
-                { field: 'col7', headerName: 'Column 7', width: 150 },
-                { field: 'col8', headerName: 'Column 8', width: 150 },
-                { field: 'col9', headerName: 'Column 9', width: 150 },
+                { field: 'patient', headerName: 'Patient', width: 150 },
+                { field: 'medications', headerName: 'Medications', width: 150 }
             ]
         };
     }
