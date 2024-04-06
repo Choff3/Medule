@@ -13,7 +13,7 @@ class Schedules extends React.Component {
         this.state = {
             schedules: {},
             columns: [
-                { field: 'patientId', headerName: 'Patient', width: 150 },
+                { field: 'patientName', headerName: 'Patient', width: 150 },
                 { field: 'medication', headerName: 'Medications', width: 150 }
             ]
         };
@@ -27,7 +27,7 @@ class Schedules extends React.Component {
         }).then(res => {
             this.setState({ schedules: res.data })
         })
-    }
+    };
 
     render() {
         console.log(this.state.schedules);

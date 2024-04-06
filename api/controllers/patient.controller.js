@@ -19,15 +19,9 @@ export async function getPatientsCount() {
 
 export async function getPatient(id) {
     try {
-        const query = getObjectIdQuery(id);
-        const result = await patientCollection.findOne(query);
-
+        const result = await patientCollection.find({ 'resource.id': id });
         return result;
     } catch (err) {
         console.error("Error in getPatient", err.message);
     }
-}
-
-function getObjectIdQuery(id) {
-    return { _id: new ObjectId(id) };
 }

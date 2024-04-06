@@ -1,5 +1,6 @@
 import express from "express";
 import * as patientController from "../controllers/patient.controller.js";
+import {getPatient} from "../controllers/patient.controller.js";
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.get("/patient/getPatientsCount", async (req, res) => {
 });
 
 router.get("/patient/:id", async (req, res) => {
-    const patient = await patientController.getSpecificPatient(req.params.id);
+    const patient = await patientController.getPatient(req.params.id);
     res.json(patient);
 });
 
