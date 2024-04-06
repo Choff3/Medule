@@ -1,6 +1,6 @@
 import axios from "axios";
 import dotenv from "dotenv";
-import { patientCollection, medicationCollection } from "../mongodb/conn.js";
+import { patientCollection, medicationCollection, scheduleCollection } from "../mongodb/conn.js";
 
 dotenv.config();
 
@@ -12,9 +12,10 @@ export async function loadFhirPatients(){
         for (const key in response.data.entry){
             const patient = response.data.entry[key];
             await patientCollection.insertOne(patient);
+            await createSchedule(patient.resource.id);
         }
     } catch (e) {
-        console.error("Error while retrieving Patients:", e.message);
+        console.error("Error while retrieving Schedules:", e.message);
     }
 };
 
@@ -27,5 +28,17 @@ export async function loadFhirMedications(){
         }
     } catch (e) {
         console.error("Error while retrieving Medications:", e.message);
+    }
+};
+
+export async function createSchedule(patientId){
+    try {
+        const schedule = {
+            "patientId": patientId,
+            "medication": []
+        }
+        await scheduleCollection.insertOne(schedule);
+    } catch (e) {
+        console.error("Error while retrieving Schedules:", e.message);
     }
 };

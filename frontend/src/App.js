@@ -1,12 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
-import Patients from "./components/Patients";
+import Schedules from "./components/Schedules";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Patients></Patients>
+        <Schedules></Schedules>
       </header>
     </div>
   );

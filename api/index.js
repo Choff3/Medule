@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import patientRoutes from "./routes/patient.route.js";
 import medicationRoutes from "./routes/medication.route.js";
+import scheduleRoutes from "./routes/schedule.route.js";
 import {loadFhirPatients, loadFhirMedications} from "./controllers/fhir.controller.js";
 
 const app = express();
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/', patientRoutes);
 app.use('/', medicationRoutes);
+app.use('/', scheduleRoutes);
 
 loadFhirPatients();
 loadFhirMedications();
