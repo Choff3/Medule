@@ -37,6 +37,8 @@ class Patient extends React.Component {
     render() {
         return (
             <Box m="20px">
+                TODO: Add <a href="https://fullcalendar.io">FullCalendar</a>
+                <br />
                 {this.state.schedule.patientName}
             </Box>
         );
