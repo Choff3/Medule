@@ -18,7 +18,7 @@ router.get("/schedule/getSchedulesCount", async (req, res) => {
 });
 
 router.get("/schedule/:id", async (req, res) => {
-    const schedule = await scheduleController.getSpecificSchedule(req.params.id);
+    const schedule = await scheduleController.getSchedule(req.params.id);
     res.json(schedule);
 });
 

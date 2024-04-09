@@ -14,7 +14,7 @@ router.get("/medication/getMedicationsCount", async (req, res) => {
 });
 
 router.get("/medication/:id", async (req, res) => {
-    const medication = await medicationController.getSpecificMedication(req.params.id);
+    const medication = await medicationController.getMedication(req.params.id);
     res.json(medication);
 });
 

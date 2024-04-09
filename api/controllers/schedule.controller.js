@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import {scheduleCollection} from "../mongodb/conn.js";
 
 export async function getAllSchedules(limit = 0) {

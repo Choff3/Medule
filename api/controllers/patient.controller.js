@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import { patientCollection } from "../mongodb/conn.js";
 
 export async function getAllPatients(limit = 0) {
