@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { scheduleCollection } from "../mongodb/conn.js";
+import {scheduleCollection} from "../mongodb/conn.js";
 
 export async function getAllSchedules(limit = 0) {
     try {
@@ -19,15 +19,9 @@ export async function getSchedulesCount() {
 
 export async function getSchedule(id) {
     try {
-        const query = getObjectIdQuery(id);
-        const result = await scheduleCollection.findOne(query);
-
+        const result = await scheduleCollection.find({ '_id': id }).toArray();
         return result;
     } catch (err) {
-        console.error("Error in getSchedule", err.message);
+        console.error("Error in get getSchedule", err.message);
     }
-}
-
-function getObjectIdQuery(id) {
-    return { _id: new ObjectId(id) };
 }

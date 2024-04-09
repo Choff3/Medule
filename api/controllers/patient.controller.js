@@ -19,7 +19,7 @@ export async function getPatientsCount() {
 
 export async function getPatient(id) {
     try {
-        const result = await patientCollection.find({ 'resource.id': id });
+        const result = await patientCollection.find({ '_id': id }).toArray();
         return result;
     } catch (err) {
         console.error("Error in getPatient", err.message);

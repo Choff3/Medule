@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import {medicationCollection } from "../mongodb/conn.js";
+import {medicationCollection} from "../mongodb/conn.js";
 
 export async function getAllMedications(limit = 0) {
     try {
@@ -16,18 +16,11 @@ export async function getMedicationsCount() {
         console.error("Error in getMedicationsCount", err.message);
     }
 }
-
 export async function getMedication(id) {
     try {
-        const query = getObjectIdQuery(id);
-        const result = await medicationCollection.findOne(query);
-
+        const result = await medicationCollection.find({ '_id': id }).toArray();
         return result;
     } catch (err) {
         console.error("Error in getMedication", err.message);
     }
-}
-
-function getObjectIdQuery(id) {
-    return { _id: new ObjectId(id) };
 }
