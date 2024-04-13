@@ -1,10 +1,11 @@
 import React from "react";
-import { Box } from "@mui/material";
+import {Box, Button, InputLabel, Select} from "@mui/material";
 import axios from "axios";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from '@fullcalendar/timegrid'
 const PATIENT_ENDPOINT = "http://localhost:5001/patient";
 const SCHEDULE_ENDPOINT = "http://localhost:5001/schedule";
+const MEDICATION_ENDPOINT = "http://localhost:5001/medication";
 
 class Patient extends React.Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class Patient extends React.Component {
         this.state = {
             patientId: window.location.href.split("/")[4],
             patient: {},
-            schedule: {}
+            schedule: {},
+            medication: {},
         }
     }
 
@@ -34,14 +36,39 @@ class Patient extends React.Component {
             this.setState({schedule: res.data[0]});
         })
         console.log(this.state.schedule)
+
+        // TODO: Possibly create API function for returning medication name, id.
+        // TODO: then call that endpoint here to populate the dropdown.
+        await axios({
+            url: MEDICATION_ENDPOINT,
+            method: 'GET',
+            headers: {"Content-Type": "application/json"}
+        }).then(res => {
+            this.setState({medication: res.data});
+        })
+        console.log(this.state.medication)
     };
 
     render() {
         // TODO: Add box for patient info
         return (
-            <Box m="20px" bgcolor='primary.main'>
-                {this.state.schedule.patientName}
-            <Box />
+            <Box>
+                <Box m="20px" bgcolor='primary.main'>
+                    {this.state.schedule.patientName}
+                </Box>
+                <Box>
+                    <InputLabel id="add-med-label">Add New Medication</InputLabel>
+                    <Select
+                        labelId="add-med-label"
+                        id="add-med-select"
+                        // value={age}
+                        label="Medication"
+                        // onChange={handleChange}
+                    />
+                    <Button>
+                        Add
+                    </Button>
+                </Box>
                 <Box m="20px" bgcolor='primary.secondary'>
                     <FullCalendar
                         plugins={[timeGridPlugin]}
@@ -55,6 +82,7 @@ class Patient extends React.Component {
                         }}
                     />
                 </Box>
+            </Box>
         );
     }
 };
