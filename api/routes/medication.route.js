@@ -8,6 +8,11 @@ router.get("/medication", async (req, res) => {
     res.json(medications);
 });
 
+router.get("/medication/names", async (req, res) => {
+    const medications = await medicationController.getAllMedicationNames();
+    res.json(medications);
+});
+
 router.get("/medication/getMedicationsCount", async (req, res) => {
     const count = await medicationController.getMedicationsCount();
     res.json(count);

@@ -8,6 +8,15 @@ export async function getAllMedications(limit = 0) {
     }
 }
 
+export async function getAllMedicationNames(limit = 0) {
+    try {
+        //TODO: return Array of [{medicationId,medicationName},{...}]
+        return medicationCollection.find().toArray();
+    } catch (err) {
+        console.error("Error in getAllMedications", err.message);
+    }
+}
+
 export async function getMedicationsCount() {
     try {
         return await medicationCollection.countDocuments();

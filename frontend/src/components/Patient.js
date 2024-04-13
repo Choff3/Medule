@@ -37,10 +37,8 @@ class Patient extends React.Component {
         })
         console.log(this.state.schedule)
 
-        // TODO: Possibly create API function for returning medication name, id.
-        // TODO: then call that endpoint here to populate the dropdown.
         await axios({
-            url: MEDICATION_ENDPOINT,
+            url: MEDICATION_ENDPOINT+"/names",
             method: 'GET',
             headers: {"Content-Type": "application/json"}
         }).then(res => {
