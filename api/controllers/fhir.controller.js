@@ -49,7 +49,7 @@ export async function createSchedule(patientId, patientName){
         }
         await scheduleCollection.insertOne(schedule);
     } catch (e) {
-        console.error("Schedule already exists:", e.message);
+        console.error("Schedule already exists:", e.message); // TODO: Fix this
     }
 };
 
