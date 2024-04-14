@@ -18,7 +18,10 @@ class Patient extends React.Component {
             patient: {},
             schedule: {},
             medication: [],
+            addMedName: "Select Medication",
+            addMedTime: dayjs(),
         }
+        this.handleClick = this.handleClick.bind(this);
     }
 
     async componentDidMount() {
@@ -47,6 +50,12 @@ class Patient extends React.Component {
         })
     };
 
+    handleClick(){
+        console.log(this.state.addMedName);
+        console.log(this.state.addMedTime.$d);
+        // TODO: Add new med to patient schedule state and mongo
+    }
+
     render() {
         // TODO: Add box for patient info
         return (
@@ -59,9 +68,8 @@ class Patient extends React.Component {
                     <Select
                         labelId="add-med-label"
                         id="add-med-select"
-                        width='100px'
-                        value={this.state.medication}
                         label="Medication"
+                        onChange={(newMed) => this.setState({addMedName: newMed.target.value})}
                     >
                         {
                             this.state.medication.map((med) => {
@@ -71,11 +79,15 @@ class Patient extends React.Component {
                     </Select>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <TimePicker
-                            label="Uncontrolled picker"
-                            defaultValue={dayjs('2022-04-17T15:30')}
+                            id="add-med-time"
+                            label="Time"
+                            value={this.state.addMedTime}
+                            onChange={(newTime) => this.setState({addMedTime: newTime})}
                         />
                     </LocalizationProvider>
-                    <Button>
+                    <Button
+                        onClick={this.handleClick}
+                    >
                         Add
                     </Button>
                 </Box>
