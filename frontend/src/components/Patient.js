@@ -1,8 +1,11 @@
 import React from "react";
-import {Box, Button, InputLabel, Select} from "@mui/material";
+import {Box, Button, InputLabel, MenuItem, Select} from "@mui/material";
 import axios from "axios";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from '@fullcalendar/timegrid'
+import { TimePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import dayjs from "dayjs";
 const PATIENT_ENDPOINT = "http://localhost:5001/patient";
 const SCHEDULE_ENDPOINT = "http://localhost:5001/schedule";
 const MEDICATION_ENDPOINT = "http://localhost:5001/medication";
@@ -14,7 +17,7 @@ class Patient extends React.Component {
             patientId: window.location.href.split("/")[4],
             patient: {},
             schedule: {},
-            medication: {},
+            medication: [],
         }
     }
 
@@ -42,7 +45,6 @@ class Patient extends React.Component {
         }).then(res => {
             this.setState({medication: res.data});
         })
-        console.log(this.state.medication)
     };
 
     render() {
@@ -57,10 +59,22 @@ class Patient extends React.Component {
                     <Select
                         labelId="add-med-label"
                         id="add-med-select"
-                        value={this.state.medication} //TODO: Fill dropdown with medication names, try to track ID for better insert as well.
+                        width='100px'
+                        value={this.state.medication}
                         label="Medication"
-                        // onChange={handleChange}
-                    />
+                    >
+                        {
+                            this.state.medication.map((med) => {
+                                return <MenuItem key={med[0]} value={med[1]}>{med[1]}</MenuItem>
+                            })
+                        }
+                    </Select>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <TimePicker
+                            label="Uncontrolled picker"
+                            defaultValue={dayjs('2022-04-17T15:30')}
+                        />
+                    </LocalizationProvider>
                     <Button>
                         Add
                     </Button>
