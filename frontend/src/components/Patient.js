@@ -26,7 +26,6 @@ class Patient extends React.Component {
         }).then(res => {
             this.setState({patient: res.data[0].resource});
         })
-        console.log(this.state.patient)
 
         await axios({
             url: SCHEDULE_ENDPOINT+"/"+this.state.patientId,
@@ -35,7 +34,6 @@ class Patient extends React.Component {
         }).then(res => {
             this.setState({schedule: res.data[0]});
         })
-        console.log(this.state.schedule)
 
         await axios({
             url: MEDICATION_ENDPOINT+"/names",
@@ -59,7 +57,7 @@ class Patient extends React.Component {
                     <Select
                         labelId="add-med-label"
                         id="add-med-select"
-                        // value={age}
+                        value={this.state.medication} //TODO: Fill dropdown with medication names, try to track ID for better insert as well.
                         label="Medication"
                         // onChange={handleChange}
                     />
