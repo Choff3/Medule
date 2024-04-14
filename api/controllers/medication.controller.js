@@ -9,9 +9,14 @@ export async function getAllMedications(limit = 0) {
 }
 
 export async function getAllMedicationNames(limit = 0) {
+    let medNames = [];
     try {
-        //TODO: return Array of [{medicationId,medicationName},{...}]
-        return medicationCollection.find().toArray();
+        const medications = await medicationCollection.find().toArray();
+        medications.map(med => {
+            const medName = [med.resource.id, med.resource.code.coding[0].display];
+            medNames.push(medName);
+        });
+        return medNames;
     } catch (err) {
         console.error("Error in getAllMedications", err.message);
     }
