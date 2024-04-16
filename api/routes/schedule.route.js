@@ -5,8 +5,8 @@ import {addMedication} from "../controllers/schedule.controller.js";
 const router = express.Router();
 
 router.post("/schedule/medication", async (req, res) => {
-    const result = await scheduleController.addMedication(req);
-    // processResult(result, res);
+    const response = await scheduleController.addMedication(req);
+    res.json(response);
 });
 router.get("/schedule", async (req, res) => {
     const schedules = await scheduleController.getAllSchedules();

@@ -51,11 +51,9 @@ class Patient extends React.Component {
     };
 
     async handleClick(){
-        //TODO: Debug why med name and time is null
-        // Add new med to patient schedule state and mongo
         const newMedication = {
-            "_id": this.state.addMedId,
-            "time": this.state.addMedTime.$d // TODO: May want to just extract time depending on how FullCalendar works
+            "medicationId": this.state.addMedId,
+            "medicationTime": this.state.addMedTime.$d // TODO: May want to just extract time depending on how FullCalendar works
         }
         var schedule = this.state.schedule;
         schedule.push(newMedication);
@@ -74,7 +72,7 @@ class Patient extends React.Component {
     getMedicationName(searchKey) {
         const search = this.state.medication.filter(obj => Object.keys(obj).some(key => obj[key].includes(searchKey)))[0];
 
-        if (search != undefined){
+        if (search !== undefined){
             return search[1];
         }
         else{
@@ -84,7 +82,6 @@ class Patient extends React.Component {
 
     getCalendarEvents() {
         var events = [];
-        console.log(this.state.schedule);
         this.state.schedule.map((med) => {
             const event = {
                     "title": this.getMedicationName(med.medicationId),
@@ -92,8 +89,8 @@ class Patient extends React.Component {
                     "end": med.medicationTime+1 // TODO: Convert to milliseconds or whatever
             };
             events.push(event);
+            return event;
         });
-        // console.log(events);
         return events;
     }
 
@@ -151,6 +148,4 @@ class Patient extends React.Component {
         );
     }
 };
-//                    {/*events={events}*/}
-//                     {/*eventContent={renderEventContent}*/}
 export default Patient;
