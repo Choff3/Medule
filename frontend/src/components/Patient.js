@@ -68,6 +68,30 @@ class Patient extends React.Component {
         })
     }
 
+
+    getMedicationName(searchKey) {
+        const search = this.state.medication.filter(obj => Object.keys(obj).some(key => obj[key].includes(searchKey)))[0];
+
+        if (search != undefined){
+            return search[1];
+        }
+        else{
+            return searchKey;
+        }
+    }
+
+    getCalendarEvents() {
+        var events = [];
+        this.state.schedule.map((med) => {
+            const event = {
+                    "title": this.getMedicationName(med.medicationId),
+                    "start": med.medicationTime, // TODO: Convert to milliseconds or whatever
+                    "end": med.medicationTime+1 // TODO: Convert to milliseconds or whatever
+            };
+            events.push(event);
+        })
+    }
+
     render() {
         // TODO: Add box for patient info
         return (
@@ -110,6 +134,7 @@ class Patient extends React.Component {
                         initialView='timeGridDay'
                         height='auto'
                         allDaySlot={false}
+                        // events={getCalendarEvents()}
                         headerToolbar={{
                             "left": '',
                             "center": '',
