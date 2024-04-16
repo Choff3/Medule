@@ -51,13 +51,15 @@ class Patient extends React.Component {
     };
 
     async handleClick(){
+        //TODO: Debug why med name and time is null
         // Add new med to patient schedule state and mongo
         const newMedication = {
             "_id": this.state.addMedId,
             "time": this.state.addMedTime.$d // TODO: May want to just extract time depending on how FullCalendar works
         }
         var schedule = this.state.schedule;
-        this.setState({ schedule: schedule.push(newMedication) });
+        schedule.push(newMedication);
+        this.setState({ schedule: schedule });
 
         newMedication['patientId'] = this.state.patientId;
         await axios({
@@ -82,6 +84,7 @@ class Patient extends React.Component {
 
     getCalendarEvents() {
         var events = [];
+        console.log(this.state.schedule);
         this.state.schedule.map((med) => {
             const event = {
                     "title": this.getMedicationName(med.medicationId),
@@ -89,7 +92,9 @@ class Patient extends React.Component {
                     "end": med.medicationTime+1 // TODO: Convert to milliseconds or whatever
             };
             events.push(event);
-        })
+        });
+        // console.log(events);
+        return events;
     }
 
     render() {
@@ -134,7 +139,7 @@ class Patient extends React.Component {
                         initialView='timeGridDay'
                         height='auto'
                         allDaySlot={false}
-                        // events={getCalendarEvents()}
+                        events={this.getCalendarEvents()}
                         headerToolbar={{
                             "left": '',
                             "center": '',
