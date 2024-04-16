@@ -16,7 +16,7 @@ class Patient extends React.Component {
         this.state = {
             patientId: window.location.href.split("/")[4],
             patient: {},
-            schedule: {},
+            schedule: [],
             medication: [],
             addMedId: "Select Medication",
             addMedTime: dayjs(),
@@ -38,7 +38,7 @@ class Patient extends React.Component {
             method: 'GET',
             headers: {"Content-Type": "application/json"}
         }).then(res => {
-            this.setState({schedule: res.data[0]});
+            this.setState({schedule: res.data[0].medication});
         })
 
         await axios({
@@ -51,24 +51,21 @@ class Patient extends React.Component {
     };
 
     async handleClick(){
-        console.log(this.state.addMedId);
-        console.log(this.state.addMedTime.$d);
-        const payload = {
-            "patientId": this.state.patientId,
-            "medicationId": this.state.addMedId,
-            "medicationTime": this.state.addMedTime.$d // TODO: May
+        // Add new med to patient schedule state and mongo
+        const newMedication = {
+            "_id": this.state.addMedId,
+            "time": this.state.addMedTime.$d // TODO: May want to just extract time depending on how FullCalendar works
         }
+        var schedule = this.state.schedule;
+        this.setState({ schedule: schedule.push(newMedication) });
 
+        newMedication['patientId'] = this.state.patientId;
         await axios({
             url: SCHEDULE_ENDPOINT+"/medication",
             method: 'POST',
             headers: {"Content-Type": "application/json"},
-            data: payload
-            // data: JSON.stringify(payload),
-        }).then(res => {
-            console.log(res.data);
+            data: newMedication
         })
-        // TODO: Add new med to patient schedule state and mongo
     }
 
     render() {
