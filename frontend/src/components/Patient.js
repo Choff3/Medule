@@ -18,7 +18,7 @@ class Patient extends React.Component {
             patient: {},
             schedule: {},
             medication: [],
-            addMedName: "Select Medication",
+            addMedId: "Select Medication",
             addMedTime: dayjs(),
         }
         this.handleClick = this.handleClick.bind(this);
@@ -50,9 +50,24 @@ class Patient extends React.Component {
         })
     };
 
-    handleClick(){
-        console.log(this.state.addMedName);
+    async handleClick(){
+        console.log(this.state.addMedId);
         console.log(this.state.addMedTime.$d);
+        const payload = {
+            "patientId": this.state.patientId,
+            "medicationId": this.state.addMedId,
+            "medicationTime": this.state.addMedTime.$d // TODO: May
+        }
+
+        await axios({
+            url: SCHEDULE_ENDPOINT+"/medication",
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            data: payload
+            // data: JSON.stringify(payload),
+        }).then(res => {
+            console.log(res.data);
+        })
         // TODO: Add new med to patient schedule state and mongo
     }
 
@@ -69,11 +84,12 @@ class Patient extends React.Component {
                         labelId="add-med-label"
                         id="add-med-select"
                         label="Medication"
-                        onChange={(newMed) => this.setState({addMedName: newMed.target.value})}
+                        onChange={(newMed) => this.setState({addMedId: newMed.target.value})}
+                        // TODO: Add default dropdown option
                     >
                         {
                             this.state.medication.map((med) => {
-                                return <MenuItem key={med[0]} value={med[1]}>{med[1]}</MenuItem>
+                                return <MenuItem key={med[0]} value={med[0]}>{med[1]}</MenuItem>
                             })
                         }
                     </Select>

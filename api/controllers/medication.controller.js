@@ -22,13 +22,6 @@ export async function getAllMedicationNames(limit = 0) {
     }
 }
 
-export async function getMedicationsCount() {
-    try {
-        return await medicationCollection.countDocuments();
-    } catch (err) {
-        console.error("Error in getMedicationsCount", err.message);
-    }
-}
 export async function getMedication(id) {
     try {
         const result = await medicationCollection.find({ '_id': id }).toArray();

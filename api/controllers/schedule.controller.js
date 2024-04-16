@@ -8,19 +8,31 @@ export async function getAllSchedules(limit = 0) {
     }
 }
 
-export async function getSchedulesCount() {
-    try {
-        return await scheduleCollection.countDocuments();
-    } catch (err) {
-        console.error("Error in getSchedulesCount", err.message);
-    }
-}
-
 export async function getSchedule(id) {
     try {
         const result = await scheduleCollection.find({ '_id': id }).toArray();
         return result;
     } catch (err) {
         console.error("Error in get getSchedule", err.message);
+    }
+}
+
+export async function addMedication(medication) {
+    try {
+        const result = scheduleCollection.updateOne({
+                "_id": medication.body.patientId
+            },
+            {
+                "$push": {
+                    "medication": {
+                        "medicationId": medication.body.medicationId,
+                        "medicationTime": medication.body.medicationTime
+                    }
+                }
+            }
+        );
+        return result;
+    } catch (err) {
+        console.error("Error in createItem", err.message);
     }
 }

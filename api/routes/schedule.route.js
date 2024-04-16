@@ -1,20 +1,16 @@
 import express from "express";
 import * as scheduleController from "../controllers/schedule.controller.js";
+import {addMedication} from "../controllers/schedule.controller.js";
 
 const router = express.Router();
 
-router.post("/schedule", async (req, res) => {
-    const result = await scheduleController.createSchedule(req);
-    processResult(result, res);
+router.post("/schedule/medication", async (req, res) => {
+    const result = await scheduleController.addMedication(req);
+    // processResult(result, res);
 });
 router.get("/schedule", async (req, res) => {
     const schedules = await scheduleController.getAllSchedules();
     res.json(schedules);
-});
-
-router.get("/schedule/getSchedulesCount", async (req, res) => {
-    const count = await scheduleController.getSchedulesCount();
-    res.json(count);
 });
 
 router.get("/schedule/:id", async (req, res) => {

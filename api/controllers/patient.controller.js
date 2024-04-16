@@ -8,14 +8,6 @@ export async function getAllPatients(limit = 0) {
     }
 }
 
-export async function getPatientsCount() {
-    try {
-        return await patientCollection.countDocuments();
-    } catch (err) {
-        console.error("Error in getPatientsCount", err.message);
-    }
-}
-
 export async function getPatient(id) {
     try {
         const result = await patientCollection.find({ '_id': id }).toArray();

@@ -13,11 +13,6 @@ router.get("/medication/names", async (req, res) => {
     res.json(medications);
 });
 
-router.get("/medication/getMedicationsCount", async (req, res) => {
-    const count = await medicationController.getMedicationsCount();
-    res.json(count);
-});
-
 router.get("/medication/:id", async (req, res) => {
     const medication = await medicationController.getMedication(req.params.id);
     res.json(medication);
