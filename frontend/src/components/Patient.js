@@ -41,21 +41,23 @@ class Patient extends React.Component {
     };
 
     async handleClick(){
-        const newMedication = {
-            "medicationId": this.state.addMedId,
-            "medicationTime": this.state.addMedTime.$d // TODO: May want to just extract time depending on how FullCalendar works
-        }
-        var schedule = this.state.schedule;
-        schedule.push(newMedication);
-        this.setState({ schedule: schedule });
+        if (this.state.addMedId !== "Select Medication"){
+            const newMedication = {
+                "medicationId": this.state.addMedId,
+                "medicationTime": this.state.addMedTime.$d // TODO: May want to just extract time depending on how FullCalendar works
+            }
+            var schedule = this.state.schedule;
+            schedule.push(newMedication);
+            this.setState({ schedule: schedule });
 
-        newMedication['patientId'] = this.state.patientId;
-        await axios({
-            url: SCHEDULE_ENDPOINT+"/medication",
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            data: newMedication
-        })
+            newMedication['patientId'] = this.state.patientId;
+            await axios({
+                url: SCHEDULE_ENDPOINT+"/medication",
+                method: 'POST',
+                headers: {"Content-Type": "application/json"},
+                data: newMedication
+            })
+        }
     }
 
     getMedicationName(searchKey) {
