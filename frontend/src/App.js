@@ -21,8 +21,10 @@ function App() {
     },[]);
 
   return (
+      // TODO: Add Medule pill image and make that the home button
     <div className="App">
       <header className="App-header">
+          Medule
           <BrowserRouter >
               <Routes>
                   <Route

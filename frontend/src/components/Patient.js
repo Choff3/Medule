@@ -82,7 +82,6 @@ class Patient extends React.Component {
     render() {
         // TODO: Add box for patient info
         // TODO: Hover over med on schedule for quick info
-        // TODO: Add home button to return to patient list
         return (
             <Box>
                 <Box m="20px" bgcolor='primary.main'>
