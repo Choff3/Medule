@@ -92,13 +92,13 @@ class Patient extends React.Component {
                         labelId="add-med-label"
                         id="add-med-select"
                         label="Medication"
+                        value={this.state.addMedId ? this.state.addMedId : ""}
                         onChange={(newMed) => this.setState({addMedId: newMed.target.value})}
-                        // options={this.props.medication}
-                        // TODO: Add default dropdown option
                     >
+                        <MenuItem disabled value={"Select Medication"}>{"Select Medication"}</MenuItem>
                         {
                             this.props.medication.map((med) => {
-                                return <MenuItem key={med[0]} value={med.value}>{med.label}</MenuItem>
+                                return <MenuItem key={med.value} value={med.value}>{med.label}</MenuItem>
                             })
                         }
                     </Select>
