@@ -13,24 +13,6 @@ const Schedules = (props) => {
             { field: 'medication', headerName: 'Medications', width: 200 }
     ];
 
-    function getMedicationName(searchKey) {
-        const search = props.medication.filter(obj => Object.keys(obj).some(key => obj[key].includes(searchKey)))[0];
-        if (search !== undefined){
-            return search[1];
-        }
-        else{
-            return searchKey;
-        }
-    }
-
-    function getMedicationString(medicationArray) {
-        let result = "";
-        medicationArray.map((medication) => {
-            result = result+getMedicationName(medication.medicationId)+", ";
-        });
-        return result;
-    }
-
     useEffect(() => {
         axios({
             url: `${SCHEDULE_ENDPOINT}`,
@@ -38,17 +20,28 @@ const Schedules = (props) => {
             headers: {"Content-Type": "application/json"}
         }).then(res => {
             let tableData = [];
+
             res.data.map((schedule) => {
+                let medicationString = '';
+
+                schedule.medication.map((medication) => {
+                    const search = props.medication.filter(obj => Object.keys(obj).some(key => obj[key].includes(medication.medicationId)))[0];
+                    const medicationName = search !== undefined ? search[1] : medication.medicationId;
+                    medicationString = medicationString+medicationName+", ";
+                    return medicationString;
+                });
+
                 const rowData = {
                     "_id": schedule._id,
                     "patient": schedule.patientName,
-                    "medication": getMedicationString(schedule.medication)
+                    "medication": medicationString
                 };
                 tableData.push(rowData);
+                return rowData;
             });
             setTable(tableData);
         })
-    },[getMedicationString]);
+    },[props.medication]);
 
     return (
         <Box m="20px">
