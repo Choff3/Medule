@@ -15,13 +15,22 @@ const Schedules = (props) => {
 
     function getMedicationName(searchKey) {
         const search = props.medication.filter(obj => Object.keys(obj).some(key => obj[key].includes(searchKey)))[0];
-
         if (search !== undefined){
             return search[1];
         }
         else{
             return searchKey;
         }
+    }
+
+    function getMedicationString(medicationArray) {
+        let result = "";
+        medicationArray.map((medication) => {
+            console.log(medication);
+            result = result+getMedicationName(medication.medicationId)+", ";
+        });
+        console.log(result);
+        return result;
     }
 
     useEffect(() => {
@@ -35,7 +44,7 @@ const Schedules = (props) => {
                 const rowData = {
                     "_id": schedule._id,
                     "patient": schedule.patientName,
-                    "medication": getMedicationName(schedule.medicationId)
+                    "medication": getMedicationString(schedule.medication)
                 };
                 tableData.push(rowData);
             });

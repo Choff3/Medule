@@ -60,7 +60,6 @@ class Patient extends React.Component {
 
     getMedicationName(searchKey) {
         const search = this.props.medication.filter(obj => Object.keys(obj).some(key => obj[key].includes(searchKey)))[0];
-
         if (search !== undefined){
             return search[1];
         }
