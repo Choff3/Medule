@@ -45,7 +45,6 @@ const Schedules = (props) => {
 
     return (
         <Box width="95%">
-            All Patients
             <Box overflow="hidden">
                 <DataGrid
                     rows={table}
