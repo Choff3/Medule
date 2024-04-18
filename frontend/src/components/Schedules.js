@@ -5,13 +5,24 @@ import {DataGrid} from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 const SCHEDULE_ENDPOINT = "http://localhost:5001/schedule";
 
-const Schedules = () => {
-    const [schedule, setSchedule] = useState(0);
+const Schedules = (props) => {
+    const [table, setTable] = useState(0);
     const navigate = useNavigate();
     const columns = [
-            { field: 'patientName', headerName: 'Patient', width: 200 },
+            { field: 'patient', headerName: 'Patient', width: 200 },
             { field: 'medication', headerName: 'Medications', width: 200 }
     ];
+
+    function getMedicationName(searchKey) {
+        const search = props.medication.filter(obj => Object.keys(obj).some(key => obj[key].includes(searchKey)))[0];
+
+        if (search !== undefined){
+            return search[1];
+        }
+        else{
+            return searchKey;
+        }
+    }
 
     useEffect(() => {
         axios({
@@ -19,7 +30,16 @@ const Schedules = () => {
             method: 'GET',
             headers: {"Content-Type": "application/json"}
         }).then(res => {
-            setSchedule(res.data);
+            let tableData = [];
+            res.data.map((schedule) => {
+                const rowData = {
+                    "_id": schedule._id,
+                    "patient": schedule.patientName,
+                    "medication": getMedicationName(schedule.medicationId)
+                };
+                tableData.push(rowData);
+            });
+            setTable(tableData);
         })
     });
 
@@ -27,7 +47,7 @@ const Schedules = () => {
         <Box m="20px">
             <Box overflow="hidden">
                 <DataGrid
-                    rows={schedule}
+                    rows={table}
                     columns={columns}
                     autoHeight={true}
                     getRowId={(row) => row._id?.$oid || row._id}

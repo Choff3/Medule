@@ -8,7 +8,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from "dayjs";
 const PATIENT_ENDPOINT = "http://localhost:5001/patient";
 const SCHEDULE_ENDPOINT = "http://localhost:5001/schedule";
-const MEDICATION_ENDPOINT = "http://localhost:5001/medication";
 
 class Patient extends React.Component {
     constructor(props) {
@@ -17,7 +16,6 @@ class Patient extends React.Component {
             patientId: window.location.href.split("/")[4],
             patient: {},
             schedule: [],
-            medication: [],
             addMedId: "Select Medication",
             addMedTime: dayjs(),
         }
@@ -40,14 +38,6 @@ class Patient extends React.Component {
         }).then(res => {
             this.setState({schedule: res.data[0].medication});
         })
-
-        await axios({
-            url: MEDICATION_ENDPOINT+"/names",
-            method: 'GET',
-            headers: {"Content-Type": "application/json"}
-        }).then(res => {
-            this.setState({medication: res.data});
-        })
     };
 
     async handleClick(){
@@ -68,9 +58,8 @@ class Patient extends React.Component {
         })
     }
 
-
     getMedicationName(searchKey) {
-        const search = this.state.medication.filter(obj => Object.keys(obj).some(key => obj[key].includes(searchKey)))[0];
+        const search = this.props.medication.filter(obj => Object.keys(obj).some(key => obj[key].includes(searchKey)))[0];
 
         if (search !== undefined){
             return search[1];
@@ -96,6 +85,8 @@ class Patient extends React.Component {
 
     render() {
         // TODO: Add box for patient info
+        // TODO: Hover over med on schedule for quick info
+        // TODO: Add home button to return to patient list
         return (
             <Box>
                 <Box m="20px" bgcolor='primary.main'>
@@ -111,7 +102,7 @@ class Patient extends React.Component {
                         // TODO: Add default dropdown option
                     >
                         {
-                            this.state.medication.map((med) => {
+                            this.props.medication.map((med) => {
                                 return <MenuItem key={med[0]} value={med[0]}>{med[1]}</MenuItem>
                             })
                         }
