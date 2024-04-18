@@ -9,8 +9,8 @@ const Schedules = (props) => {
     const [table, setTable] = useState([]);
     const navigate = useNavigate();
     const columns = [
-            { field: 'patient', headerName: 'Patient', width: 200 },
-            { field: 'medication', headerName: 'Medications', flex: 1 }
+            { field: 'patient', headerName: 'Patient', minWidth: 200 },
+            { field: 'medication', headerName: 'Medications', minWidth: 200, flex: 1 }
     ];
 
     useEffect(() => {
@@ -44,7 +44,7 @@ const Schedules = (props) => {
     },[props.medication]);
 
     return (
-        <Box m="20px">
+        <Box width="95%">
             All Patients
             <Box overflow="hidden">
                 <DataGrid
