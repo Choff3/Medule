@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const SCHEDULE_ENDPOINT = "http://localhost:5001/schedule";
 
 const Schedules = (props) => {
-    const [table, setTable] = useState(0);
+    const [table, setTable] = useState([]);
     const navigate = useNavigate();
     const columns = [
             { field: 'patient', headerName: 'Patient', width: 200 },
@@ -26,10 +26,8 @@ const Schedules = (props) => {
     function getMedicationString(medicationArray) {
         let result = "";
         medicationArray.map((medication) => {
-            console.log(medication);
             result = result+getMedicationName(medication.medicationId)+", ";
         });
-        console.log(result);
         return result;
     }
 
@@ -50,7 +48,7 @@ const Schedules = (props) => {
             });
             setTable(tableData);
         })
-    });
+    },[getMedicationString]);
 
     return (
         <Box m="20px">

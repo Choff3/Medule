@@ -18,7 +18,7 @@ function App() {
         }).then(res => {
             setMedication(res.data);
         })
-    });
+    },[]);
 
   return (
     <div className="App">
