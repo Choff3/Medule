@@ -13,7 +13,10 @@ export async function getAllMedicationNames(limit = 0) {
     try {
         const medications = await medicationCollection.find().toArray();
         medications.map(med => {
-            const medName = [med.resource.id, med.resource.code.coding[0].display];
+            const medName = {
+                value: med.resource.id,
+                label: med.resource.code.coding[0].display
+            }
             medNames.push(medName);
         });
         return medNames;

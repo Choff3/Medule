@@ -26,7 +26,7 @@ const Schedules = (props) => {
 
                 schedule.medication.map((medication) => {
                     const search = props.medication.filter(obj => Object.keys(obj).some(key => obj[key].includes(medication.medicationId)))[0];
-                    const medicationName = search !== undefined ? search[1] : medication.medicationId;
+                    const medicationName = search !== undefined ? search.label : medication.medicationId;
                     medicationString = medicationString+medicationName+", ";
                     return medicationString;
                 });

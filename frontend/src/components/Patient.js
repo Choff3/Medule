@@ -60,12 +60,7 @@ class Patient extends React.Component {
 
     getMedicationName(searchKey) {
         const search = this.props.medication.filter(obj => Object.keys(obj).some(key => obj[key].includes(searchKey)))[0];
-        if (search !== undefined){
-            return search[1];
-        }
-        else{
-            return searchKey;
-        }
+        return search !== undefined ? search.label : searchKey;
     }
 
     getCalendarEvents() {
@@ -98,11 +93,12 @@ class Patient extends React.Component {
                         id="add-med-select"
                         label="Medication"
                         onChange={(newMed) => this.setState({addMedId: newMed.target.value})}
+                        // options={this.props.medication}
                         // TODO: Add default dropdown option
                     >
                         {
                             this.props.medication.map((med) => {
-                                return <MenuItem key={med[0]} value={med[0]}>{med[1]}</MenuItem>
+                                return <MenuItem key={med[0]} value={med.value}>{med.label}</MenuItem>
                             })
                         }
                     </Select>
