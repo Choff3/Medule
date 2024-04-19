@@ -5,8 +5,7 @@ import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import HomeButton from "./components/HomeButton";
-
-const MEDICATION_ENDPOINT = "http://localhost:5001/medication";
+import { MEDICATION_ENDPOINT } from "../constants";
 
 function App() {
     const [medication, setMedication] = useState([]);

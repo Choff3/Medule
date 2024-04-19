@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import {DataGrid} from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
-const SCHEDULE_ENDPOINT = "http://localhost:5001/schedule";
+import { SCHEDULE_ENDPOINT } from "../../constants";
 
 const Schedules = (props) => {
     const [table, setTable] = useState([]);
