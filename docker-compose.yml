@@ -39,5 +39,15 @@ services:
     ports:
       - 3000:3000
 
+  caddy:
+    image: caddy
+    container_name: caddy
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+
 volumes:
   mongodb_data:

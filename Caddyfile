@@ -1,0 +1,17 @@
+medule.tech {
+
+    reverse_proxy medule-frontend:3000
+
+	handle /patient/* {
+		reverse_proxy medule-api:5001
+	}
+
+	handle /schedule/* {
+		reverse_proxy medule-api:5001
+	}
+
+	handle /medication/* {
+		reverse_proxy medule-api:5001
+	}
+
+}
