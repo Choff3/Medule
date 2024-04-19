@@ -6,7 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import { TimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from "dayjs";
-import { PATIENT_ENDPOINT, SCHEDULE_ENDPOINT } from "../../constants";
+import { PATIENT_ENDPOINT, SCHEDULE_ENDPOINT } from "../constants";
 
 class Patient extends React.Component {
     constructor(props) {
