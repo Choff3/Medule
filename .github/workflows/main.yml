@@ -29,7 +29,7 @@ jobs:
       with:
         platforms: linux/amd64,linux/arm64
         push: true
-        context: api/.
+        context: "{{defaultContext}}:api"
         tags: ghcr.io/choff3/medule-api:latest
 
     - name: Build and push Frontend
@@ -37,5 +37,5 @@ jobs:
       with:
         platforms: linux/amd64,linux/arm64
         push: true
-        context: frontend/.
+        context: "{{defaultContext}}:frontend"
         tags: ghcr.io/choff3/medule-frontend:latest
