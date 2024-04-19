@@ -28,7 +28,17 @@ class Patient extends React.Component {
             method: 'GET',
             headers: {"Content-Type": "application/json"}
         }).then(res => {
-            this.setState({patient: res.data[0].resource});
+            const birthdate = res.data[0].resource.birthDate;
+            const gender = res.data[0].resource.gender;
+            const phone = res.data[0].resource.telecom[0].value;
+            const address = res.data[0].resource.address[0].line[0]+"\n"+res.data[0].resource.address[0].city+", "+res.data[0].resource.address[0].state;
+            this.setState({
+                patient: res.data[0].resource,
+                patientGender: gender,
+                patientBirthdate: birthdate,
+                patientAddress: address,
+                patientPhone: phone
+            });
         })
 
         await axios({
@@ -36,7 +46,7 @@ class Patient extends React.Component {
             method: 'GET',
             headers: {"Content-Type": "application/json"}
         }).then(res => {
-            this.setState({schedule: res.data[0].medication});
+            this.setState({schedule: res.data[0].medication, patientName: res.data[0].patientName});
         })
     };
 
@@ -44,9 +54,9 @@ class Patient extends React.Component {
         if (this.state.addMedId !== "Select Medication"){
             const newMedication = {
                 "medicationId": this.state.addMedId,
-                "medicationTime": this.state.addMedTime.$d // TODO: May want to just extract time depending on how FullCalendar works
+                "medicationTime": this.state.addMedTime.$d
             }
-            var schedule = this.state.schedule;
+            let schedule = this.state.schedule;
             schedule.push(newMedication);
             this.setState({ schedule: schedule });
 
@@ -70,8 +80,8 @@ class Patient extends React.Component {
         this.state.schedule.map((med) => {
             const event = {
                     "title": this.getMedicationName(med.medicationId),
-                    "start": med.medicationTime, // TODO: Convert to milliseconds or whatever
-                    "end": med.medicationTime+1 // TODO: Convert to milliseconds or whatever
+                    "start": med.medicationTime,
+                    "end": med.medicationTime
             };
             events.push(event);
             return event;
@@ -80,14 +90,22 @@ class Patient extends React.Component {
     }
 
     render() {
-        // TODO: Add box for patient info
         // TODO: Hover over med on schedule for quick info
+        // TODO: Button to delete meds
         return (
             <Box>
                 <Box m="20px" bgcolor='primary.main'>
-                    {this.state.schedule.patientName}
+                    Name: {this.state.patientName}
+                    <br/>
+                    Birthdate: {this.state.patientBirthdate}
+                    <br/>
+                    Gender: {this.state.patientGender}
+                    <br/>
+                    Phone: {this.state.patientPhone}
+                    <br/>
+                    Address: {this.state.patientAddress}
                 </Box>
-                <Box>
+                <Box m="20px" bgcolor='primary.secondary'>
                     <InputLabel id="add-med-label">Add New Medication</InputLabel>
                     <Select
                         labelId="add-med-label"
@@ -116,8 +134,6 @@ class Patient extends React.Component {
                     >
                         Add
                     </Button>
-                </Box>
-                <Box m="20px" bgcolor='primary.secondary'>
                     <FullCalendar
                         plugins={[timeGridPlugin]}
                         initialView='timeGridDay'
