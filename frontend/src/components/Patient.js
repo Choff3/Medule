@@ -28,10 +28,16 @@ class Patient extends React.Component {
             method: 'GET',
             headers: {"Content-Type": "application/json"}
         }).then(res => {
-            const birthdate = res.data[0].resource.birthDate;
-            const gender = res.data[0].resource.gender;
-            const phone = res.data[0].resource.telecom[0].value;
-            const address = res.data[0].resource.address[0].line[0]+"\n"+res.data[0].resource.address[0].city+", "+res.data[0].resource.address[0].state;
+            const birthdate = typeof(res.data[0].resource.birthDate) !== 'undefined' ? res.data[0].resource.birthDate : "not found";
+            const gender = typeof(res.data[0].resource.gender) !== 'undefined' ? res.data[0].resource.gender : "not found";
+            const phone = typeof(res.data[0].resource.telecom) !== 'undefined' ? res.data[0].resource.telecom[0].value : "not found";
+            let address = "not found";
+            try{
+                address = res.data[0].resource.address[0].line[0]+"\n"+res.data[0].resource.address[0].city+", "+res.data[0].resource.address[0].state;
+            }catch (e){
+                console.error(e);
+            }
+
             this.setState({
                 patient: res.data[0].resource,
                 patientGender: gender,
@@ -101,7 +107,7 @@ class Patient extends React.Component {
                     <br/>
                     Gender: {this.state.patientGender}
                     <br/>
-                    Phone: {this.state.patientPhone}
+                    Phone/Email: {this.state.patientPhone}
                     <br/>
                     Address: {this.state.patientAddress}
                 </Box>
