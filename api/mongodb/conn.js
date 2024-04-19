@@ -1,6 +1,10 @@
 import { MongoClient } from "mongodb";
 
-const connectionString = "mongodb://medule:password@localhost:27017";
+const MONGO_USERNAME = process.env.MONGO_USERNAME || "medule";
+const MONGO_PASSWORD = process.env.MONGO_PASSWORD || "password";
+const MONGO_ENDPOINT = process.env.MONGO_ENDPOINT || "localhost:27017";
+
+const connectionString = "mongodb://"+MONGO_USERNAME+":"+MONGO_PASSWORD+"@"+MONGO_ENDPOINT;
 
 const client = new MongoClient(connectionString);
 
