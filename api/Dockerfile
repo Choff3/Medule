@@ -1,8 +1,8 @@
 FROM node:latest
 
-ENV FHIR_SERVER_ENDPOINT="https://demo.kodjin.com/fhir"
+ENV FHIR_SERVER_ENDPOINT='https://demo.kodjin.com/fhir'
 ENV NODE_ENV=production
-ENV PUBLIC_URL="medule.tech"
+ENV PUBLIC_URL='medule.tech'
 
 WORKDIR /app
 
@@ -10,4 +10,4 @@ COPY . .
 
 RUN npm install
 
-CMD [ "npm", "nodemon", "index.js"]
+CMD npx nodemon index
