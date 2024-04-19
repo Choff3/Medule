@@ -2,33 +2,36 @@ version: '3'
 
 services:
 
-  mongodb:
+  medule-mongodb:
     container_name: mongodb
     image: mongo:latest
+    restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: "medule"
-      MONGO_INITDB_ROOT_PASSWORD: "password"
+      MONGO_INITDB_ROOT_USERNAME: 'medule'
+      MONGO_INITDB_ROOT_PASSWORD: 'password'
     ports:
       - 27017:27017
     volumes:
       - mongodb_data:/data/db
 
-  api:
+  medule-api:
     container_name: api
     image: ghcr.io/choff3/medule-api:latest
+    restart: always
     environment:
-      FHIR_SERVER_ENDPOINT: "https://demo.kodjin.com/fhir"
-      MONGO_USERNAME: "medule"
-      MONGO_PASSWORD: "password"
-      MONGO_ENDPOINT: "localhost:27017"
+      FHIR_SERVER_ENDPOINT: 'https://demo.kodjin.com/fhir'
+      MONGO_USERNAME: 'medule'
+      MONGO_PASSWORD: 'password'
+      MONGO_ENDPOINT: 'localhost:27017'
     ports:
       - 5001:5001
 
-  frontend:
+  medule-frontend:
     container_name: frontend
     image: ghcr.io/choff3/medule-frontend:latest
+    restart: always
     environment:
-      REACT_APP_API_ENDPOINT: "http://localhost:5001"
+      REACT_APP_API_ENDPOINT: 'http://localhost:5001'
     ports:
       - 3000:3000
 

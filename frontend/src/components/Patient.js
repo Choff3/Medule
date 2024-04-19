@@ -155,5 +155,5 @@ class Patient extends React.Component {
             </Box>
         );
     }
-};
+}
 export default Patient;
