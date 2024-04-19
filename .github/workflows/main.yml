@@ -30,7 +30,7 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         context: "{{defaultContext}}:api"
-        tags: ghcr.io/choff3/medule-api:latest
+        tags: ghcr.io/${{github.repository_owner}}/medule-api:latest
 
     - name: Build and push Frontend
       uses: docker/build-push-action@v5
@@ -38,4 +38,4 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         context: "{{defaultContext}}:frontend"
-        tags: ghcr.io/choff3/medule-frontend:latest
+        tags: ghcr.io/${{github.repository_owner}}/medule-frontend:latest
