@@ -2,7 +2,7 @@ medule.tech {
 
     reverse_proxy medule-frontend:3000
 
-	handle /patient {
+	handle /patients {
 		reverse_proxy medule-api:5001
 	}
 
@@ -14,7 +14,7 @@ medule.tech {
 		reverse_proxy medule-api:5001
 	}
 
-	handle /patient/* {
+	handle /patients/* {
 		reverse_proxy medule-api:5001
 	}
 

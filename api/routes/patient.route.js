@@ -4,12 +4,12 @@ import {getPatient} from "../controllers/patient.controller.js";
 
 const router = express.Router();
 
-router.get("/patient", async (req, res) => {
+router.get("/patients", async (req, res) => {
     const patients = await patientController.getAllPatients();
     res.json(patients);
 });
 
-router.get("/patient/:id", async (req, res) => {
+router.get("/patients/:id", async (req, res) => {
     const patient = await patientController.getPatient(req.params.id);
     res.json(patient);
 });

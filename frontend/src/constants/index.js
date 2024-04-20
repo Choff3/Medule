@@ -1,3 +1,3 @@
 export const MEDICATION_ENDPOINT = process.env.REACT_APP_API_ENDPOINT+"/medication" || "http://localhost:5001/medication";
 export const SCHEDULE_ENDPOINT = process.env.REACT_APP_API_ENDPOINT+"/schedule" || "http://localhost:5001/schedule";
-export const PATIENT_ENDPOINT = process.env.REACT_APP_API_ENDPOINT+"/patient" || "http://localhost:5001/patient";
+export const PATIENT_ENDPOINT = process.env.REACT_APP_API_ENDPOINT+"/patients" || "http://localhost:5001/patients";
