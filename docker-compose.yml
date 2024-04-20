@@ -35,7 +35,7 @@ services:
       context: ./frontend
     restart: always
     environment:
-      REACT_APP_API_ENDPOINT: 'http://medule-api:5001'
+      REACT_APP_API_ENDPOINT: 'https://medule.tech'
     ports:
       - 3000:3000
 
